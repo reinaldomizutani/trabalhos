@@ -13,24 +13,20 @@ typedef struct{
 } tree;
 
 int instree(node **raiz, int *valor){
-	if(*raiz == NULL){// ESTA PORRA TA DANDO ERRADO COROLHO
+	if(*raiz == NULL){
 		*raiz = (node*) malloc (sizeof(node));
 		(*raiz)->elem = *valor;
 		(*raiz)->left = NULL;
 		(*raiz)->right = NULL;
-		printf("TESTE IF RAIZ = NULL\n");
 		return 1;
 	}
 	else if(*valor < (*raiz)->elem){
 		return(instree(&(*raiz)->left, valor));
-		printf("TESTE INSERÇÃO ESQUERDA\n");
-		}
+	}
 	else if(*valor >= (*raiz)->elem){
 		return(instree(&(*raiz)->right, valor));
-		printf("TESTE INSERÇÃO DIREITA\n");
 		}
 	else{
-		printf("TESTE DEU MERDA\n");
 		return 0;
 		}
 }
@@ -41,7 +37,7 @@ void criArvore(tree *bin){
 
 
 int main(){
-	int N, i, aux, erro=0;
+	int N, i, aux, erro=0, *vet;
 	
 	//criando árvore
 	tree arvore;
@@ -49,12 +45,20 @@ int main(){
 
 	
 	scanf("%d", &N);
+	vet = (int*)malloc(sizeof(int));
 	
 	for(i=0 ; i<N ; i++){
 		scanf("%d", &aux);
+		vet[i] = aux;
 		erro = instree(&arvore.root, &aux);
+		if(erro == 1)
+			break;
 	}
 
+	for(i=0 ; i<N ; i++){
+		printf("%d ", vet[i]);
+	}
+	printf("\n");
 
 	return 0;
 }
