@@ -1,0 +1,77 @@
+main:
+	
+	1. inicio - inicialização dos valores nas variáveis. 
+		Também imprime uma tela de inicialização bonitinha
+	2. desenhaBordas - desenha as bordas da fase
+	
+	Gameloop
+	3. desenhaSnake - imprime snake e food
+		- usa o vetor vetSnake e a variavel posfood pra printar tanto a snake quanto a 
+		comida
+	4. condMorte
+		1 - trombar nas paredes
+		2 - trombar dela mesma
+		3 - starGameOver
+			imprime as mensagens de game-over na tela
+	5. moveSnake
+		- se posicao da cabeça == posicao da comida, 
+			incrementa tamanho da snake e pontuacao
+			foodstatus recebe -1
+			
+		2. movimentacao snake:
+			trabalhando com vetores:
+				- r0 recebe o endereço do último gomo da snake
+				- r1 recebe o endereço do penúltimo gomo
+				
+				- loop (moveLoops) copia o valor do último gomo
+				- no penúltimo, pra poder saber onde imprimir a snake
+				
+		3. funções moveUp, moveDown, moveLeft e moveRight
+			- comparam a direcao atual da snake com a entrada do teclado
+			- se a entrada for na direcao oposta, ela continua se movendo
+				para a direcao anterior. Caso contrário, ela se move na
+				nova direcao.
+				
+			- atualizaDirecao: atualiza a direção da cabeça da snake
+			
+	6. posicaoFood:
+		- se a variavel FoodStatus for diferente de -1, não mexe em nada
+			e vai pro fim da função
+			
+		- else foodStatus recebe zero 
+		
+		caso a snake tenha pego a comida, o algoritmo segue:
+			- pega a direção atual da snake
+			- soma um valor arbitrário
+			- corrige se a comida estiver nas bordas,
+			- altera a posição da comida (na variavel posFood)
+			- imprime a nova comida.
+			
+			Restart_Game:
+	inchar 	r0
+	loadn 	r1, #' '
+	
+	cmp r0, r1
+	jeq Restart_Activate
+	
+	jmp Restart_End
+	
+	Restart_Activate:
+		loadn r0, #615
+		loadn r1, #EraseGameOver
+		loadn r2, #0
+		call Imprime
+		
+		loadn r0, #687
+		loadn r1, #EraseRestart
+		loadn r2, #0
+		call Imprime
+	
+		call EraseSnake
+		call inicio
+		
+		jmp gameLoop
+		
+	Restart_End:
+	
+	rts
