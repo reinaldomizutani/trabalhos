@@ -7,7 +7,7 @@ int main(){
 	char pais[30];
 	long gdp, pop, area;
 	
-	int i=0, j, cont, op;
+	int i=0, j, cont=0, op;
 	
 	no *paises = NULL;
 	
@@ -26,14 +26,13 @@ int main(){
 	for (j=0 ; j<i ; j++){
 		printf("%s, %ld, %ld, %ld\n", paises[j].pais, paises[j].area, paises[j].pop, paises[j].gdp);
 	}
-	cont = i+1;
 	
-	heapArea(paises, cont);
+	heapArea(paises, i+1, &cont);
 
 	for (j=0 ; j<i ; j++){
 		printf("%ld\n", paises[j].area);
 	}
-	cont = i+1;
+	printf("\n\nCONT = %d\n\n", cont);
 	
 	return 0;
 }

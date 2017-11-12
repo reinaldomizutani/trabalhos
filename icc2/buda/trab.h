@@ -9,5 +9,5 @@ typedef struct{
 	long area, gdp, pop;
 } no;
 
-void heapArea(no *paises, int tam);
-void heapifyArea(no *paises, int raiz, int fundo);
+void heapArea(no *paises, int tam, int *cont);
+void heapifyArea(no *paises, int raiz, int fundo, int *cont);

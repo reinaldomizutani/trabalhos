@@ -6,11 +6,12 @@ typedef struct{
 } no;
 */
 
-void heapArea(no *paises, int tam){
+void heapArea(no *paises, int tam, int *cont){
 	int i;
 	no aux;
 	for(i = (tam/2) ; i>=0 ; i--){
-		heapifyArea(paises, i, tam-1);
+		heapifyArea(paises, i, tam-1, cont);
+		*cont = *cont+1;
 	}
 	for(i = tam-1 ; i>=1 ; i--){
 		aux.pop = paises[0].pop;
@@ -28,23 +29,28 @@ void heapArea(no *paises, int tam){
 		paises[i].area = aux.area;
 		strcpy(paises[i].pais, aux.pais);
 
-		heapifyArea(paises, 0, i-1);
+		*cont = *cont+13;
+
+		heapifyArea(paises, 0, i-1, cont);
 	}
 }
 
-void heapifyArea(no *paises, int raiz, int fundo){
+void heapifyArea(no *paises, int raiz, int fundo, int *cont){
 	int rdy, filhoMax;
 	no aux;
 	rdy = 0;
 	while((raiz*2) <= fundo && (!rdy)) {
 		if(raiz*2 == fundo){
 			filhoMax = raiz*2;
+			*cont = *cont + 1;
 		}
 		else if(paises[raiz*2].area > paises[raiz*2+1].area){
 			filhoMax = raiz*2;
+			*cont = *cont + 1;
 		}
 		else{
 			filhoMax = raiz*2 + 1;
+			*cont = *cont + 1;
 		}
 
 		if(paises[raiz].area < paises[filhoMax].area){
@@ -62,10 +68,13 @@ void heapifyArea(no *paises, int raiz, int fundo){
 			paises[filhoMax].gdp = aux.gdp;
 			paises[filhoMax].area = aux.area;
 			strcpy(paises[filhoMax].pais, paises[raiz].pais);
+			
+			*cont = *cont + 13;
 
 			raiz = filhoMax;
 		}
 		else{
+			*cont = *cont + 1;
 			rdy=1;
 		}
 	}
