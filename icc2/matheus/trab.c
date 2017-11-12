@@ -131,11 +131,9 @@ int buscaInterpolaArea(no paises[],long chaveArea, int ini, int fim){
 int buscaInterpolaGdp(no paises[],long chaveGdp, int ini, int fim){
     int meio;
     
-    while(ini <= fim){
-    	
+    while(ini<=fim){
         meio = ini + ((fim-ini)*((chaveGdp-paises[ini].gdp) / (paises[fim].gdp - paises[ini].gdp)));
-        
-        if(chaveGdp < paises[meio].gdp){		
+        if(chaveGdp < paises[meio].gdp){
             fim = meio - 1;
         }else if(chaveGdp > paises[meio].gdp){
             ini = meio + 1;
@@ -145,3 +143,4 @@ int buscaInterpolaGdp(no paises[],long chaveGdp, int ini, int fim){
 	}
     return -1;
 }
+

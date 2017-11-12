@@ -15,7 +15,7 @@ int particionaPivoMeioPop( no *paises, int ini, int fim ){
    long aux, troca;
    int i,j;
    
-   aux = paises[ini].pop;
+   aux = paises[(ini+fim)/2].pop;
    i = ini - 1;
    j = fim + 1;
    
@@ -123,7 +123,7 @@ int particionaPivoMeioArea( no *paises, int ini, int fim ){
    long aux, troca;
    int i,j;
    
-   aux = paises[ini].area;
+   aux = paises[(ini+fim)/2].area;
    i = ini - 1;
    j = fim + 1;
    
@@ -228,25 +228,26 @@ void quickSortPivoMeioNome( no* paises ,int ini,int fim ){
    }
 }
 int particionaPivoMeioNome( no *paises, int ini, int fim ){
-   char nome[30],aux[30];
+   char nome[30],aux[30], troca[30];
    int i,j;
    
-   strcpy(aux,paises[ini].pais);
+   strcpy(aux,paises[(ini+fim)/2].pais);
    i = ini - 1;
    j = fim + 1;
-   
 	for(;;){
-		do{ 
+		while((strcmp(paises[ini].pais,aux) > 0)&&(j>fim)){ 
 		  	j--; 
-		}while(strcmp(paises[ini].pais,aux) > 0);
-   		do{
+		}
+   		 while((strcmp(paises[ini].pais,aux) < 0 )&&(i<ini)){
 			i++;
-		} while(strcmp(paises[ini].pais,aux) < 0 );
+		}
       
-      if (i < j)  {
-         strcpy(aux,paises[i].pais);
+      if (i <= j)  {
+         strcpy(troca,paises[i].pais);
          strcpy(paises[i].pais,paises[j].pais);
-         strcpy(paises[j].pais,aux);
+         strcpy(paises[j].pais,troca);
+         i++;
+         j--;
    		}else{
 			return j;
   		}
@@ -262,26 +263,27 @@ void quickSortPivoAleatorioNome( no* paises ,int ini,int fim ){
    }
 }
 int particionaPivoAleatorioNome( no *paises, int ini, int fim ){
-   char nome[30],aux[30];
+   char nome[30],aux[30],troca[30];
    int i,j, indice;
    
    indice = ini+rand()%(fim-ini);
    strcpy(aux,paises[indice].pais);
    i = ini - 1;
    j = fim + 1;
-   
 	for(;;){
-		do{ 
+		while((strcmp(paises[ini].pais,aux) > 0)&&(j>fim)){ 
 		  	j--; 
-		}while(strcmp(paises[ini].pais,aux) > 0);
-   		do{
+		}
+   		 while((strcmp(paises[ini].pais,aux) < 0 )&&(i<ini)){
 			i++;
-		} while(strcmp(paises[ini].pais,aux) < 0 );
+		}
       
-      if (i < j)  {
-         strcpy(aux,paises[i].pais);
+      if (i <= j)  {
+         strcpy(troca,paises[i].pais);
          strcpy(paises[i].pais,paises[j].pais);
-         strcpy(paises[j].pais,aux);
+         strcpy(paises[j].pais,troca);
+         i++;
+         j--;
    		}else{
 			return j;
   		}
@@ -297,7 +299,7 @@ void quickSortPivoMedianaNome( no* paises ,int ini,int fim ){
    }
 }
 int particionaPivoMedianaNome( no *paises, int ini, int fim ){
-   char nome[30],aux[30];
+   char nome[30],aux[30], troca[30];
    int i,j;
    int indice1, indice2, indice3, indicefinal;
    
@@ -307,21 +309,22 @@ int particionaPivoMedianaNome( no *paises, int ini, int fim ){
 	indicefinal = (indice1+indice2+indice3)/3;
    
    strcpy(aux,paises[indicefinal].pais);
-   i = ini - 1;
+    i = ini - 1;
    j = fim + 1;
-   
 	for(;;){
-		do{ 
+		while((strcmp(paises[ini].pais,aux) > 0)&&(j>fim)){ 
 		  	j--; 
-		}while(strcmp(paises[ini].pais,aux) > 0);
-   		do{
+		}
+   		 while((strcmp(paises[ini].pais,aux) < 0 )&&(i<ini)){
 			i++;
-		} while(strcmp(paises[ini].pais,aux) < 0 );
+		}
       
-      if (i < j)  {
-         strcpy(aux,paises[i].pais);
+      if (i <= j)  {
+         strcpy(troca,paises[i].pais);
          strcpy(paises[i].pais,paises[j].pais);
-         strcpy(paises[j].pais,aux);
+         strcpy(paises[j].pais,troca);
+         i++;
+         j--;
    		}else{
 			return j;
   		}
@@ -341,7 +344,7 @@ int particionaPivoMeioGdp( no *paises, int ini, int fim ){
    long aux, troca;
    int i,j;
    
-   aux = paises[ini].gdp;
+   aux = paises[(ini+fim)/2].gdp;
    i = ini - 1;
    j = fim + 1;
    
