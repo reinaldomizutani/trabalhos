@@ -1,13 +1,12 @@
 #include "trab.c"
 
-
 int main(){
     FILE *fp;
     fp = fopen("paises.txt", "r");
 	char pais[30];
 	long gdp, pop, area;
 	
-	int i=0, j, cont=0, op;
+	int i=0, j, contArea=0, op, contGdp=0 , contPop=0;
 	
 	no *paises = NULL;
 	
@@ -27,12 +26,17 @@ int main(){
 		printf("%s, %ld, %ld, %ld\n", paises[j].pais, paises[j].area, paises[j].pop, paises[j].gdp);
 	}
 	
-	heapArea(paises, i+1, &cont);
+	heapArea(paises, i+1, &contArea);
+
+	heapPop(paises, i+1, &contPop);
+
+	heapGdp(paises, i+1, &contGdp);
 
 	for (j=0 ; j<i ; j++){
-		printf("%ld\n", paises[j].area);
+		printf("%ld\n", paises[j].gdp);
 	}
-	printf("\n\nCONT = %d\n\n", cont);
+	printf("\n\ncontArea = %d\ncontPop = %d\ncontGdp = %d", contArea, contPop, contGdp);
 	
+
 	return 0;
 }

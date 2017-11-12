@@ -79,3 +79,152 @@ void heapifyArea(no *paises, int raiz, int fundo, int *cont){
 		}
 	}
 }
+
+
+void heapPop(no *paises, int tam, int *cont){
+	int i;
+	no aux;
+	for(i = (tam/2) ; i>=0 ; i--){
+		heapifyPop(paises, i, tam-1, cont);
+		*cont = *cont+1;
+	}
+	for(i = tam-1 ; i>=1 ; i--){
+		aux.pop = paises[0].pop;
+		aux.gdp = paises[0].gdp;
+		aux.area = paises[0].area;
+		strcpy(aux.pais, paises[0].pais);
+
+		paises[0].pop = paises[i].pop;
+		paises[0].gdp = paises[i].gdp;
+		paises[0].area = paises[i].area;
+		strcpy(paises[0].pais, paises[i].pais);
+
+		paises[i].pop = aux.pop;
+		paises[i].gdp = aux.gdp;
+		paises[i].area = aux.area;
+		strcpy(paises[i].pais, aux.pais);
+
+		*cont = *cont+13;
+
+		heapifyArea(paises, 0, i-1, cont);
+	}
+}
+
+void heapifyPop(no *paises, int raiz, int fundo, int *cont){
+	int rdy, filhoMax;
+	no aux;
+	rdy = 0;
+	while((raiz*2) <= fundo && (!rdy)) {
+		if(raiz*2 == fundo){
+			filhoMax = raiz*2;
+			*cont = *cont + 1;
+		}
+		else if(paises[raiz*2].pop > paises[raiz*2+1].pop){
+			filhoMax = raiz*2;
+			*cont = *cont + 1;
+		}
+		else{
+			filhoMax = raiz*2 + 1;
+			*cont = *cont + 1;
+		}
+
+		if(paises[raiz].area < paises[filhoMax].area){
+			aux.pop = paises[raiz].pop;
+			aux.gdp = paises[raiz].gdp;
+			aux.area = paises[raiz].area;
+			strcpy(aux.pais, paises[raiz].pais);
+
+			paises[raiz].pop = paises[filhoMax].pop;
+			paises[raiz].gdp = paises[filhoMax].gdp;
+			paises[raiz].area = paises[filhoMax].area;
+			strcpy(paises[raiz].pais, paises[filhoMax].pais);
+			
+			paises[filhoMax].pop = aux.pop;
+			paises[filhoMax].gdp = aux.gdp;
+			paises[filhoMax].area = aux.area;
+			strcpy(paises[filhoMax].pais, paises[raiz].pais);
+			
+			*cont = *cont + 13;
+
+			raiz = filhoMax;
+		}
+		else{
+			*cont = *cont + 1;
+			rdy=1;
+		}
+	}
+}
+
+void heapGdp(no *paises, int tam, int *cont){
+	int i;
+	no aux;
+	for(i = (tam/2) ; i>=0 ; i--){
+		heapifyPop(paises, i, tam-1, cont);
+		*cont = *cont+1;
+	}
+	for(i = tam-1 ; i>=1 ; i--){
+		aux.pop = paises[0].pop;
+		aux.gdp = paises[0].gdp;
+		aux.area = paises[0].area;
+		strcpy(aux.pais, paises[0].pais);
+
+		paises[0].pop = paises[i].pop;
+		paises[0].gdp = paises[i].gdp;
+		paises[0].area = paises[i].area;
+		strcpy(paises[0].pais, paises[i].pais);
+
+		paises[i].pop = aux.pop;
+		paises[i].gdp = aux.gdp;
+		paises[i].area = aux.area;
+		strcpy(paises[i].pais, aux.pais);
+
+		*cont = *cont+13;
+
+		heapifyArea(paises, 0, i-1, cont);
+	}
+}
+
+void heapifyGdp(no *paises, int raiz, int fundo, int *cont){
+	int rdy, filhoMax;
+	no aux;
+	rdy = 0;
+	while((raiz*2) <= fundo && (!rdy)) {
+		if(raiz*2 == fundo){
+			filhoMax = raiz*2;
+			*cont = *cont + 1;
+		}
+		else if(paises[raiz*2].gdp > paises[raiz*2+1].gdp){
+			filhoMax = raiz*2;
+			*cont = *cont + 1;
+		}
+		else{
+			filhoMax = raiz*2 + 1;
+			*cont = *cont + 1;
+		}
+
+		if(paises[raiz].area < paises[filhoMax].area){
+			aux.pop = paises[raiz].pop;
+			aux.gdp = paises[raiz].gdp;
+			aux.area = paises[raiz].area;
+			strcpy(aux.pais, paises[raiz].pais);
+
+			paises[raiz].pop = paises[filhoMax].pop;
+			paises[raiz].gdp = paises[filhoMax].gdp;
+			paises[raiz].area = paises[filhoMax].area;
+			strcpy(paises[raiz].pais, paises[filhoMax].pais);
+			
+			paises[filhoMax].pop = aux.pop;
+			paises[filhoMax].gdp = aux.gdp;
+			paises[filhoMax].area = aux.area;
+			strcpy(paises[filhoMax].pais, paises[raiz].pais);
+			
+			*cont = *cont + 13;
+
+			raiz = filhoMax;
+		}
+		else{
+			*cont = *cont + 1;
+			rdy=1;
+		}
+	}
+}
