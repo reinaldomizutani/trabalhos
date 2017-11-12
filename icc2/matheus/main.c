@@ -65,10 +65,10 @@ printf("== BUSCAS SEQUENCIAIS ==\n");
 //	printf("Indice: %d\n",aux);	
 
 //====================================================================================================//			
-/*		QUICKSORTS		*/	
+/*		QUICKSORTS		*/	/*
 	printf("\n== QUICKSORTS ==\n");
 	
-	/* POR POPULACAO */
+	/* POR POPULACAO *//*
 	printf("Por Populacao:\n");
 		tempoInicial = clock();
 	quickSortPivoMeioPop(paises,0,tam);
@@ -88,7 +88,7 @@ printf("== BUSCAS SEQUENCIAIS ==\n");
 		tempoTotal = (tempoFinal - tempoInicial)/(CLOCKS_PER_SEC);	
 		printf("\nTempo Orde Medi: %.12f", tempoTotal);
 
-	/* POR AREA */
+	/* POR AREA *//*
 	printf("\n\nPor Area:\n");
 		tempoInicial = clock();
 	quickSortPivoMeioArea(paises,0,tam);
@@ -109,7 +109,7 @@ printf("== BUSCAS SEQUENCIAIS ==\n");
 		printf("\nTempo Orde Medi: %.12f", tempoTotal);
 			
 			
-		/* POR NOME */
+		/* POR NOME *//*
 		printf("\n\nPor Nome:\n");
 	
 		tempoInicial = clock();
@@ -133,7 +133,7 @@ printf("== BUSCAS SEQUENCIAIS ==\n");
 		/* POR GDP */
 		printf("\n\nPor GDP:\n");
 		tempoInicial = clock();
-	quickSortPivoMeioGdp(paises,0,tam);
+	quickSortPivoMeioGdp(paises,0,tam,&aux);
 		tempoFinal = clock();
 		tempoTotal = (tempoFinal - tempoInicial)/(CLOCKS_PER_SEC);	
 		printf("\nTempo Orde Meio: %.12f", tempoTotal);
@@ -192,7 +192,7 @@ printf("== BUSCAS SEQUENCIAIS ==\n");
 		printf("Tempo em segundos: %.12f\n", tempoTotal);
 */
 		tempoInicial = clock();
-	aux = buscaInterpolaGdp(paises,chaveGdp,0,tam);
+	aux = buscaInterpolaGdp(paises,chaveGdp,0,tam,&aux);
 		tempoFinal = clock();
 		tempoTotal = (tempoFinal - tempoInicial)/(CLOCKS_PER_SEC);	
 		printf("Tempo em segundos: %.12f\n", tempoTotal);
