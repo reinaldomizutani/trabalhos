@@ -133,9 +133,19 @@ int main(){
 
 heapPop(paises, i+1, &contPop);
 
+//Busca Sequencial
+printf("BUSCA SEQUENCIAL\nchave pop:\n");
+scanf("%ld", &contPop);
 
-//====================================================================================================//
-/* BUSCA INTERPOLADA */	
+tempoInicial = clock();
+buscaSequencialPop(paises, contPop, tam, &aux);
+tempoFinal = clock();
+tempoTotal = (tempoFinal - tempoInicial)/(CLOCKS_PER_SEC);	
+printf("Tempo de busca: %.12f\nnumero de operacoes:%d\n--\n\n\n", tempoTotal, aux);
+aux = 0;
+
+
+// BUSCA INTERPOLADA
 	printf("\n\n== BUSCAS INTERPOLADAS ==\n");
 	printf("Chave GDP: ");
 	scanf("%ld",&chaveGdp);
