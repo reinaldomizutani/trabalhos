@@ -5,14 +5,14 @@
 //POPULACO=============//
 void quickSortPivoMeioPop( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
       pivo = particionaPivoMeioPop(paises, ini, fim,cont);
       quickSortPivoMeioPop(paises, ini, pivo,cont);
       quickSortPivoMeioPop(paises, pivo+1, fim,cont);
    }
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMeioPop( no *paises, int ini, int fim,int* cont ){
    long aux, troca;
@@ -21,25 +21,25 @@ int particionaPivoMeioPop( no *paises, int ini, int fim,int* cont ){
    aux = paises[(ini+fim)/2].pop;
    i = ini - 1;
    j = fim + 1;
-   *cont+=7;
+   *cont = *cont+7;
    
 	for(;;){
 		do{ 
 		  	j--; 
-		  	*cont+=2;
+		  	*cont = *cont+2;
 		}while( paises[j].pop > aux );
    		do{
 			i++;
-			*cont+=2;
+			*cont = *cont+2;
 		} while( paises[i].pop < aux );
       
       if (i < j)  {
          troca = paises[i].pop;
          paises[i].pop = paises[j].pop;
          paises[j].pop = troca;
-         *cont+=4;
+         *cont = *cont+4;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
@@ -47,7 +47,7 @@ int particionaPivoMeioPop( no *paises, int ini, int fim,int* cont ){
 
 void quickSortPivoAleatorioPop( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
       pivo = particionaPivoAleatorioPop(paises, ini, fim, cont);
@@ -55,7 +55,7 @@ void quickSortPivoAleatorioPop( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoAleatorioPop(paises, pivo+1, fim,cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoAleatorioPop( no *paises, int ini, int fim,int* cont ){
    long aux, troca;
@@ -68,11 +68,11 @@ int particionaPivoAleatorioPop( no *paises, int ini, int fim,int* cont ){
       
 	for(;;){
 		do{ 
-		   *cont+=2;
+		   *cont = *cont+2;
 		  	j--; 
 		}while( paises[j].pop > aux );
    		do{
-   			*cont+=2;
+   			*cont = *cont+2;
 			i++;
 		} while( paises[i].pop < aux );
       
@@ -80,7 +80,7 @@ int particionaPivoAleatorioPop( no *paises, int ini, int fim,int* cont ){
          troca = paises[i].pop;
          paises[i].pop = paises[j].pop;
          paises[j].pop = troca;
-   		   *cont+=4;
+   		   *cont = *cont+4;
 		}else{
 			cont++;
 			return j;
@@ -90,7 +90,7 @@ int particionaPivoAleatorioPop( no *paises, int ini, int fim,int* cont ){
 
 void quickSortPivoMedianaPop( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   	*cont++;
+   	*cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
 	  pivo = particionaPivoMedianaPop(paises, ini, fim,cont);
@@ -98,7 +98,7 @@ void quickSortPivoMedianaPop( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoMedianaPop(paises, pivo+1, fim,cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMedianaPop( no *paises, int ini, int fim,int* cont){
    long aux, troca;
@@ -117,11 +117,11 @@ int particionaPivoMedianaPop( no *paises, int ini, int fim,int* cont){
    
 	for(;;){
 		do{ 
-		   *cont+=2;
+		   *cont = *cont+2;
 		  	j--; 
 		}while( paises[j].pop > aux );
    		do{
-   			*cont+=2;
+   			*cont = *cont+2;
 			i++;
 		} while( paises[i].pop < aux );
       
@@ -129,7 +129,7 @@ int particionaPivoMedianaPop( no *paises, int ini, int fim,int* cont){
          troca = paises[i].pop;
          paises[i].pop = paises[j].pop;
          paises[j].pop = troca;
-          *cont+=4;
+          *cont = *cont+4;
    		}else{
    			 *cont+=1;
 			return j;
@@ -140,7 +140,7 @@ int particionaPivoMedianaPop( no *paises, int ini, int fim,int* cont){
 //AREA=============//
 void quickSortPivoMeioArea( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
 	  pivo = particionaPivoMeioArea(paises, ini, fim, cont);
@@ -148,7 +148,7 @@ void quickSortPivoMeioArea( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoMeioArea(paises, pivo+1, fim, cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMeioArea( no *paises, int ini, int fim, int* cont ){
   long aux, troca;
@@ -157,25 +157,25 @@ int particionaPivoMeioArea( no *paises, int ini, int fim, int* cont ){
    aux = paises[(ini+fim)/2].area;
    i = ini - 1;
    j = fim + 1;
-   *cont+=7;
+   *cont = *cont+7;
    
 	for(;;){
 		do{ 
 		  	j--; 
-		  	*cont+=2;
+		  	*cont = *cont+2;
 		}while( paises[j].area > aux );
    		do{
 			i++;
-			*cont+=2;
+			*cont = *cont+2;
 		} while( paises[i].area < aux );
       
       if (i < j)  {
          troca = paises[i].area;
          paises[i].area = paises[j].area;
          paises[j].area = troca;
-         *cont+=4;
+         *cont = *cont+4;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
@@ -183,14 +183,14 @@ int particionaPivoMeioArea( no *paises, int ini, int fim, int* cont ){
 
 void quickSortPivoAleatorioArea( no* paises ,int ini,int fim, int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
    		*cont+=5;
       pivo = particionaPivoAleatorioArea(paises, ini, fim, cont);
       quickSortPivoAleatorioArea(paises, ini, pivo, cont);
       quickSortPivoAleatorioArea(paises, pivo+1, fim, cont);
    }
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoAleatorioArea( no *paises, int ini, int fim, int* cont ){
  long aux, troca;
@@ -203,11 +203,11 @@ int particionaPivoAleatorioArea( no *paises, int ini, int fim, int* cont ){
       
 	for(;;){
 		do{ 
-		   *cont+=2;
+		   *cont = *cont+2;
 		  	j--; 
 		}while( paises[j].area > aux );
    		do{
-   			*cont+=2;
+   			*cont = *cont+2;
 			i++;
 		} while( paises[i].area < aux );
       
@@ -215,7 +215,7 @@ int particionaPivoAleatorioArea( no *paises, int ini, int fim, int* cont ){
          troca = paises[i].area;
          paises[i].area = paises[j].area;
          paises[j].area = troca;
-   		   *cont+=4;
+   		   *cont = *cont+4;
 		}else{
 			cont++;
 			return j;
@@ -226,14 +226,14 @@ int particionaPivoAleatorioArea( no *paises, int ini, int fim, int* cont ){
 
 void quickSortPivoMedianaArea( no* paises ,int ini,int fim, int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
 	  pivo = particionaPivoMedianaArea(paises, ini, fim, cont);
       quickSortPivoMedianaArea(paises, ini, pivo, cont);
       quickSortPivoMedianaArea(paises, pivo+1, fim, cont);
    }
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMedianaArea( no *paises, int ini, int fim, int* cont ){
   long aux, troca;
@@ -252,11 +252,11 @@ int particionaPivoMedianaArea( no *paises, int ini, int fim, int* cont ){
    
 	for(;;){
 		do{ 
-		   *cont+=2;
+		   *cont = *cont+2;
 		  	j--; 
 		}while( paises[j].area > aux );
    		do{
-   			*cont+=2;
+   			*cont = *cont+2;
 			i++;
 		} while( paises[i].area < aux );
       
@@ -264,7 +264,7 @@ int particionaPivoMedianaArea( no *paises, int ini, int fim, int* cont ){
          troca = paises[i].area;
          paises[i].area = paises[j].area;
          paises[j].area = troca;
-          *cont+=4;
+          *cont = *cont+4;
    		}else{
    			 *cont+=1;
 			return j;
@@ -275,7 +275,7 @@ int particionaPivoMedianaArea( no *paises, int ini, int fim, int* cont ){
 //NOME=============//
 void quickSortPivoMeioNome( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
    	*cont+=5;
       pivo = particionaPivoMeioNome(paises, ini, fim, cont);
@@ -283,7 +283,7 @@ void quickSortPivoMeioNome( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoMeioNome(paises, pivo+1, fim, cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMeioNome( no *paises, int ini, int fim,int* cont ){
    char nome[30],aux[30], troca[30];
@@ -292,7 +292,7 @@ int particionaPivoMeioNome( no *paises, int ini, int fim,int* cont ){
    strcpy(aux,paises[(ini+fim)/2].pais);
    i = ini - 1;
    j = fim + 1;
-   *cont+=7;
+   *cont = *cont+7;
    
 	for(;;){
 		while((strcmp(paises[ini].pais,aux) > 0)&&(j>fim)){ 
@@ -313,7 +313,7 @@ int particionaPivoMeioNome( no *paises, int ini, int fim,int* cont ){
          
 		*cont+=6;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
@@ -321,7 +321,7 @@ int particionaPivoMeioNome( no *paises, int ini, int fim,int* cont ){
 
 void quickSortPivoAleatorioNome( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
    	*cont+=5;
       pivo = particionaPivoAleatorioNome(paises, ini, fim, cont);
@@ -329,7 +329,7 @@ void quickSortPivoAleatorioNome( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoAleatorioNome(paises, pivo+1, fim, cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoAleatorioNome( no *paises, int ini, int fim,int* cont ){
    char nome[30],aux[30],troca[30];
@@ -360,7 +360,7 @@ int particionaPivoAleatorioNome( no *paises, int ini, int fim,int* cont ){
          
 		*cont+=6;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
@@ -368,7 +368,7 @@ int particionaPivoAleatorioNome( no *paises, int ini, int fim,int* cont ){
 
 void quickSortPivoMedianaNome( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
 	  pivo = particionaPivoMedianaNome(paises, ini, fim, cont);
@@ -376,7 +376,7 @@ void quickSortPivoMedianaNome( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoMedianaNome(paises, pivo+1, fim,cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMedianaNome( no *paises, int ini, int fim,int* cont ){
    char nome[30],aux[30], troca[30];
@@ -413,7 +413,7 @@ int particionaPivoMedianaNome( no *paises, int ini, int fim,int* cont ){
          
 		*cont+=6;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
@@ -422,7 +422,7 @@ int particionaPivoMedianaNome( no *paises, int ini, int fim,int* cont ){
 //GDP=============//
 void quickSortPivoMeioGdp( no* paises ,int ini,int fim,int* cont ){
    int pivo;
-   *cont++;
+   *cont = *cont+1;
    if (ini<fim) {
       *cont+=5;
 	  pivo = particionaPivoMeioGdp(paises, ini, fim,cont);
@@ -430,7 +430,7 @@ void quickSortPivoMeioGdp( no* paises ,int ini,int fim,int* cont ){
       quickSortPivoMeioGdp(paises, pivo+1, fim,cont);
    }
    
-   *cont++;
+   *cont = *cont+1;
 }
 int particionaPivoMeioGdp( no *paises, int ini, int fim, int* cont ){
    long aux, troca;
@@ -439,25 +439,25 @@ int particionaPivoMeioGdp( no *paises, int ini, int fim, int* cont ){
    aux = paises[(ini+fim)/2].gdp;
    i = ini - 1;
    j = fim + 1;
-    *cont+=7;
+    *cont = *cont+7;
    
 	for(;;){
 		do{ 
 		  	j--; 
-		  	*cont+=2;
+		  	*cont = *cont+2;
 		}while( paises[j].gdp > aux );
    		do{
 			i++;
-			*cont+=2;
+			*cont = *cont+2;
 		} while( paises[i].gdp < aux );
       
       if (i < j)  {
          troca = paises[i].gdp;
          paises[i].gdp = paises[j].gdp;
          paises[j].gdp = troca;
-         *cont+=4;
+         *cont = *cont+4;
    		}else{
-   			*cont++;
+   			*cont = *cont+1;
 			return j;
   		}
 	}
