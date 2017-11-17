@@ -23,7 +23,7 @@ void criaFila(fila *F){
     F->tam = 0;
 }
 
-void inserir(fila *F, int *X, int *erro){
+void inserir(fila *F, int *X, int *erro, int *index){
 	
 	no *p;
 	
@@ -36,6 +36,7 @@ void inserir(fila *F, int *X, int *erro){
 	p->elem = *X;
     p->prox = NULL;
     p->ant = NULL;
+    p->index = *index;
     
 	
 	if(F->ini == NULL)
@@ -52,7 +53,11 @@ void imprimeFila(fila *F){
 
     p = F->ini;
     while(p->prox != NULL){
-        printf("%d\n", p->elem);
+        printf("indice: %d, elem: %d\n", p->index, p->elem);
         p = p->prox;
     }
+}
+
+void bubbleSort(fila *F){
+
 }

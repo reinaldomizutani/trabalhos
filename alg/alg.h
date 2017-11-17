@@ -4,7 +4,7 @@
 #include<time.h>
 
 typedef struct node{
-    int elem;
+    int elem, index;
     struct node *prox, *ant;
 } no;
 
@@ -14,5 +14,8 @@ typedef struct{
 } fila;
 
 void criaFila(fila *F);
-void inserir(fila *F, int *X, int *erro);
+void inserir(fila *F, int *X, int *erro, int *index);
 void imprimeFila(fila *F);
+
+
+void bubbleSort(fila *F);

@@ -17,7 +17,7 @@ int main(){
     scanf("%d", &size);
     for(i=0 ; i<size ; i++){
         X = rand()%5000;
-        inserir(&F, &X, &erro);
+        inserir(&F, &X, &erro, &i);
     }
     imprimeFila(&F);
     return 0;
