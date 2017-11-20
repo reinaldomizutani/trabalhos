@@ -41,8 +41,10 @@ void inserir(fila *F, int *X, int *erro, int *index){
 	
 	if(F->ini == NULL)
 		F->ini = p;
-		else F->fim->prox = p;
-		
+        else {
+        p->ant = F->fim;
+        F->fim->prox = p;
+		}
 	F->fim = p;
 	
 }
