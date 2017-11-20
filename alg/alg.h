@@ -13,9 +13,10 @@ typedef struct{
     int tam;
 } fila;
 
-void criaFila(fila *F);
+void criaFila(fila *F, int size);
 void inserir(fila *F, int *X, int *erro, int *index);
 void imprimeFila(fila *F);
+no* retornaNo(fila *F, int index);
 
-
-void bubbleSort(fila *F);
+void bubbleSort(fila *F, int size, int ordem);//0 = crescente ; 1 = decrescente
+//void insertionSort(fila *F, int size, int ordem);
