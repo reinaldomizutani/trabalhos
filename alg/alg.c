@@ -85,41 +85,39 @@ void bubbleSort(fila *F, int size, int ordem){
         }
     }
 }
-/*
+
 void insertionSort(fila *F, int size, int ordem){
+    no *key=NULL, *comp=NULL;
     int i, j, aux;
-    no *a, *b;
-    for(i=1 ; i<size ; i++){
-        a = retornaNo(F, i); // key
-        aux = a->elem;
-        j = i-1;
 
-        b = retornaNo(F, i-1); // vet[j]
-
-        while(j>=0 && b->elem > aux){
-            a->elem = b->elem;
-            j = j+1;
+    if(ordem == 0){
+        for(i=1 ; i<size ; i++){
+            key = retornaNo(F, i);
+            j = i-1;
+            comp = key->ant;
+            aux = key->elem;
+            while(j>=0 && comp->elem > aux){
+                comp->prox->elem = comp->elem;
+                j = j-1;
+                if(comp->ant != NULL)
+                    comp = comp->ant;
+            }
+            comp->elem = aux;
         }
-        b = b->prox;
-        b->elem = 
     }
-}*/
-
-
-/*
-void insertionSort(int arr[], int n)
-{
-   int i, key, j;
-   for (i = 1; i < n; i++)
-   {
-       key = arr[i];
-       j = i-1;
-
-       while (j >= 0 && arr[j] > key)
-       {
-           arr[j+1] = arr[j];
-           j = j-1;
-       }
-       arr[j+1] = key;
-   }
-}*/
+    else if(ordem == 1){
+        for(i=1 ; i<size ; i++){
+            key = retornaNo(F, i);
+            j = i-1;
+            comp = key->ant;
+            aux = key->elem;
+            while(j>=0 && comp->elem < aux){
+                comp->prox->elem = comp->elem;
+                j = j-1;
+                if(comp->ant != NULL)
+                    comp = comp->ant;
+            }
+            comp->elem = aux;
+        }
+    }
+}

@@ -19,4 +19,4 @@ void imprimeFila(fila *F);
 no* retornaNo(fila *F, int index);
 
 void bubbleSort(fila *F, int size, int ordem);//0 = crescente ; 1 = decrescente
-//void insertionSort(fila *F, int size, int ordem);
+void insertionSort(fila *F, int size, int ordem);

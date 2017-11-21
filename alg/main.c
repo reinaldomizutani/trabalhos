@@ -19,7 +19,8 @@ int main(){
         X = rand()%500;
         inserir(&F, &X, &erro, &i);
     }
-    bubbleSort(&F, size, 0);
+    imprimeFila(&F);
+    insertionSort(&F, size, 1);
     imprimeFila(&F);
     printf("SIZE = %d", F.tam);
     
