@@ -14,13 +14,13 @@ void inserir(fila *F, int *X, int *erro, int *index){
 	if(p==NULL){
 		*erro = 1;
 		return;
+        printf("ERRO NA CRIAÇÃO DO NO - funcao inserir\n");
 	} else *erro = 0;
 	
 	p->elem = *X;
     p->prox = NULL;
     p->ant = NULL;
-    p->index = *index;
-    
+    p->index = *index; 
 	
 	if(F->ini == NULL)
 		F->ini = p;
@@ -120,4 +120,75 @@ void insertionSort(fila *F, int size, int ordem){
             comp->elem = aux;
         }
     }
+}
+
+void mergeSortC(fila *F){
+    //dividindo em 2 listas:
+
+    if(F->tam > 1){
+        int i=0, erro=0;
+
+        fila esq, dir;
+        criaFila(&esq, F->tam/2);
+        if(F->tam%2 == 0)
+            criaFila(&dir, F->tam/2);
+        else
+            criaFila(&dir, (F->tam/2)+1);
+
+        no *aux;
+        aux = (no*)malloc(sizeof(no));
+        aux = F->ini;
+
+        while(i < F->tam/2){
+            inserir(&esq, &aux->elem, &erro, &i);
+            aux = aux->prox;
+            i++;
+        }
+        i=0;
+        while(aux != NULL){
+            inserir(&dir, &aux->elem, &erro, &i);
+            aux = aux->prox;
+            i++;
+        }
+
+        mergeSortC(&esq);
+        mergeSortC(&dir);
+        mergeC(F, &esq, &dir);
+    }
+}
+
+void mergeC(fila *F, fila *esq, fila *dir){
+    
+    no *aux1, *aux2;
+    fila filaux;
+    int i=0, erro=0;
+    aux1 = (no*)malloc(sizeof(no));
+    aux2 = (no*)malloc(sizeof(no));
+
+
+    criaFila(&filaux, esq->tam+dir->tam);
+    
+
+    aux1 = esq->ini;
+    aux2 = dir->ini;
+    //if(esq->tam == 1 && dir->tam == 1){
+        F = (fila*)malloc(sizeof(fila));
+        while(aux2 != NULL && aux1 != NULL){
+            if(aux1->elem <= aux2->elem){
+                if(aux1 != NULL)
+                    inserir(F, &aux1->elem, &erro, &i);
+                i++;
+                aux1 = aux1->prox;
+            }
+            else{
+                if(aux2 != NULL)
+                    inserir(F, &aux2->elem, &erro, &i);
+                i++;
+                aux2 = aux2->prox;
+            }
+        }
+    //}
+//    imprimeFila(F);
+    
+
 }

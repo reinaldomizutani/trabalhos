@@ -19,10 +19,12 @@ int main(){
         X = rand()%500;
         inserir(&F, &X, &erro, &i);
     }
-    imprimeFila(&F);
-    insertionSort(&F, size, 1);
-    imprimeFila(&F);
-    printf("SIZE = %d", F.tam);
     
+    //insertionSort(&F, size, 1);
+
+    mergeSortC(&F);
+    imprimeFila(&F);
+
+
     return 0;
 }
