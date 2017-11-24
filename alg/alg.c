@@ -6,6 +6,20 @@ void criaFila(fila *F, int size){
     F->tam = size;
 }
 
+void finalizar(fila *F){
+	no *aux;
+	no *p = F->ini;
+	
+	while(p != NULL){
+		aux = p->prox;
+		free(p);
+		p = aux;
+	}
+	
+	F->ini = NULL;
+	
+}
+
 void inserir(fila *F, int *X, int *erro, int *index){
 	
 	no *p;
@@ -29,6 +43,7 @@ void inserir(fila *F, int *X, int *erro, int *index){
         F->fim->prox = p;
 		}
     F->fim = p;
+    
 }
 
 void imprimeFila(fila *F){
@@ -130,6 +145,7 @@ void mergeSortC(fila *F){
 
         fila esq, dir;
         criaFila(&esq, F->tam/2);
+        
         if(F->tam%2 == 0)
             criaFila(&dir, F->tam/2);
         else
@@ -162,33 +178,48 @@ void mergeC(fila *F, fila *esq, fila *dir){
     no *aux1, *aux2;
     fila filaux;
     int i=0, erro=0;
+    
     aux1 = (no*)malloc(sizeof(no));
     aux2 = (no*)malloc(sizeof(no));
 
-
     criaFila(&filaux, esq->tam+dir->tam);
-    
 
     aux1 = esq->ini;
     aux2 = dir->ini;
-    //if(esq->tam == 1 && dir->tam == 1){
-        F = (fila*)malloc(sizeof(fila));
-        while(aux2 != NULL && aux1 != NULL){
-            if(aux1->elem <= aux2->elem){
-                if(aux1 != NULL)
-                    inserir(F, &aux1->elem, &erro, &i);
-                i++;
-                aux1 = aux1->prox;
-            }
-            else{
-                if(aux2 != NULL)
-                    inserir(F, &aux2->elem, &erro, &i);
-                i++;
-                aux2 = aux2->prox;
-            }
+
+	finalizar(F);
+	criaFila(F,esq->tam+dir->tam);
+		
+	while((aux2 != NULL) && (aux1 != NULL)){		
+		
+        if(aux1->elem <= aux2->elem){
+            inserir(F, &aux1->elem, &erro, &i);
+            i++;
+            aux1 = aux1->prox;
         }
-    //}
-//    imprimeFila(F);
+        else{
+        	
+            inserir(F, &aux2->elem, &erro, &i);
+            i++;
+            aux2 = aux2->prox;
+        }
+    }
     
+    while(aux1 != NULL){
+
+        inserir(F, &aux1->elem, &erro, &i);
+        aux1 = aux1->prox;
+
+    }
+    
+    while(aux2 != NULL){
+
+        inserir(F, &aux2->elem, &erro, &i);
+        aux2 = aux2->prox;
+    }
+    
+    free(aux1);
+    free(aux2);
+        
 
 }
