@@ -1,5 +1,5 @@
-#include "alg.h"
-#include<time.h>
+#include "alg.c"
+
 
 
 

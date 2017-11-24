@@ -3,6 +3,7 @@
 #include<string.h>
 #include<time.h>
 
+
 typedef struct node{
     int elem, index;
     struct node *prox, *ant;
@@ -25,3 +26,4 @@ void insertionSort(fila *F, int size, int ordem);
 void mergeSortC(fila *F);
 //void divideFila(fila *ini, fila *left, fila *right);
 void mergeC(fila *F, fila *esq, fila *dir);
+void finalizar(fila *F);
