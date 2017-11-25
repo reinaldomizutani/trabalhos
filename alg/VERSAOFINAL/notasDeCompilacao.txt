@@ -1,0 +1,29 @@
+Para efeitos de compilação, às vezes os headers dos arquivos precisam ser alterados:
+
+no meu computador, os headers que funcionam são:
+
+- main.c:
+#include "ab.c"
+
+- ab.c:
+#include "ab.h"
+
+- ab.h:
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
+
+
+Na maioria dos outros computadores, o header que funciona é:
+
+- main.c:
+#include "ab.h"
+
+- ab.c vazio.
+
+- ab.h:
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
