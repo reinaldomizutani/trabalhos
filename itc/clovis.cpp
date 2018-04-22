@@ -42,6 +42,9 @@ bool checaFrase(Grafo g, int vertAtual, char frase[]){
 }
 
 int main(){
+	//----------------------------------
+	// declaração de variáveis
+	//----------------------------------
 	int nVert = 0;
 	char vetorTerminais[MAX];
 	int estadosIniciais = 0;
@@ -56,41 +59,67 @@ int main(){
 	bool flagFrase = false;
 	Grafo g;
 
-	// primeira linha: número de estados
+//Programa em si:
+	//----------------------------------
+	// linha 1: número de estados.
+	//----------------------------------
 	scanf("%d\n",&nVert);
-	g = iniciaGrafo(nVert);
+	g = iniciaGrafo(nVert); // inicia o grafo do autômato.
 	
-	// segunda linha conjunto de símbolos terminais
+	//----------------------------------
+	// linha 2: conjunto de símbolos terminais.
+	//----------------------------------
 	scanf("%[^\n]s",vetorTerminais);
-	printf("%s\n", vetorTerminais);
 
-	// número de estados iniciais
+	//----------------------------------
+	// linha 3: número de estados iniciais:
+	// 		1 se é Automato Finito deterministico, 
+	//		0 1 2 3 ou 0,1,2,3 se é Automato Finito Nao deterministico.
+	//----------------------------------
 	scanf("%d\n",&estadosIniciais);
 
+
+
+
+
+	// não entendi -> joga o vértice (0, -1, com peso i)
 	for(int i = 0; i < estadosIniciais; i++){
 		addAresta(&g, i, -1, 'i');
 	}
 	for(int i = estadosIniciais; i < nVert; i++){
 		addAresta(&g, i, -1, '#');
 	}
-
-	// conjunto de estados de aceitação
+	//----------------------------------
+	// linha 4: conjunto de estados de aceitação:
+	// 		depois da cadeia ser processada, se o autômato estiver em um dos 
+	// 		nós desse conjunto, a frase é considerada "aceita".
+	//----------------------------------
 	scanf("%[^\n]s",vetorAceitacao);
 
-	//número de transições
+
+	//----------------------------------
+	// linha 5: número de transições -> número de arestas no grafo.
+	//----------------------------------
 	scanf("%d\n",&numArestas);
 
-	// todas as transições
+
+	//----------------------------------
+	// linha 6: todas as transições -> todas as arestas do grafo, listadas no formato (v w peso).
+	//----------------------------------
 	for (int i = 0; i < numArestas; i++){
 		scanf("%d %c %d\n",&noV, &peso, &noW);
 		addAresta(&g, noV, noW, peso);	
 	}
 	printGrafo(g);
 
-	// número de casos de teste
+	//----------------------------------
+	// linha abaixo das transições: número de casos de teste
+	//----------------------------------
 	scanf("%d\n",&numTestes);
 
-	// verificando se a frase pode ser produzida pelo grafo
+	//----------------------------------
+	// proxima linha: verificando se a frase pode ser produzida pelo grafo
+	//----------------------------------
 	for(int i = 0; i < numTestes; i++){
 		scanf("%[^\n]s",fraseTestar);
 		flagFrase = false;
