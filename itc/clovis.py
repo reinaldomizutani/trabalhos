@@ -1,11 +1,9 @@
 '''
 Introdução a Teoria da Computação - turma 2018
-
 Discentes:
 Hugo de Azevedo Vitulli  			10295221
 Matheus Vinicius Gouvea de Godoi  	10295217
 Reinaldo Mizutani					7062145
-
 '''
 def testeCadeias(graph, estadosIniciais, cadeias, aceitacao, terminais):
 
@@ -20,7 +18,6 @@ def testeCadeias(graph, estadosIniciais, cadeias, aceitacao, terminais):
 				return 0
 
 			if(letra not in [item[1] for item in graph[noAtual]]):
-				print("    rejeitado internamente")
 				return 0
 
 			for adj in graph[noAtual]:
@@ -98,5 +95,4 @@ if __name__ == '__main__':
 			print(str(a) + '. aceita')
 		else:
 			print(str(a) + '. rejeita')
-		a +=1
-
+a +=1
