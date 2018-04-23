@@ -1,3 +1,12 @@
+'''
+Introdução a Teoria da Computação - turma 2018
+
+Discentes:
+Hugo de Azevedo Vitulli  			10295221
+Matheus Vinicius Gouvea de Godoi  	10295217
+Reinaldo Mizutani					7062145
+
+'''
 def testeCadeias(graph, estadosIniciais, cadeias, aceitacao, terminais):
 
 	#para todos os estados iniciais
