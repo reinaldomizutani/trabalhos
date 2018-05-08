@@ -1,3 +1,18 @@
+/*
+formato de entrada:
+primeira linha: tem 2 ints, o primeiro é o número de linhas, o segundo é o número de colunas
+segunda linha em diante tem a matriz, dividida por espaços.
+
+exemplo:
+
+4 4
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 6
+
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
