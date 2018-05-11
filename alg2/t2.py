@@ -1,93 +1,162 @@
-# def é a definição de funções em python. Não precisa declarar void nem tipos de variáveis
+import os
+
 def leTabelaInicial():
-
-	#comando para abrir o arquivo. Assim como em C, 
-	#e criado o "ponteiro" f.
 	with open('TabelaInicial.txt', 'r') as f:
-
-		#comando readlines -> le todo o arquivo (até o EOF) e joga na variavel tabela
 		tabela = f.readlines()
-
-		#criando um dicionário vazio(tabela hash)
 		dados = {}
 
-		#para todas as linhas na variavel tabela
 		for line in tabela:
-			try: 	# isso aqui é uma lindeza sem tamanho! try tenta fazer alguma 
-					# coisa, se não der certo, ele faz a outra coisa. 
-					# Parece bobeira, mas é um comando à prova de erros!
-
-				# a tabela tem um "|" no começo. line recebe line[1] em diante
+			try:
 				line = line[1:]
-
-				# os dois últimos caracteres da tabela são '|' e '\n'. remove ambos
 				line = line[:-2]
 
-				# quebra a linha em 3 variáveis (a, b, c), separando quando houver um '|'
-				a, b, c = line.split('|') #por definição, .split() forma strings (no caso são 3)
-
-				#a = nro, b = nome, c = carro
-
-				#toda vez que tiver 2 espaços consecutivos ele substitui por "nada"
+				a, b, c = line.split('|')
 				a = a.replace('  ', '')
 				b = b.replace('  ', '')
 				c = c.replace('  ', '')
 
-				#se o último caractere for um espaço, 
 				if(b[-1] == ' '):
-					#b recebe b até o penúltimo caractere
 					b = b[:-1]
-				#mesma coisa do if anterior
+
 				if(c[-1] == ' '):
 					c = c[:-1]
 
-				# a hash table 'dados' recebe 'a' (que é o número do morador na tabela inicial)
-				# só que os colchetes transformam a em uma lista -> [a]
-				# obs: para fazer cast para lista em python é só colocar colchetes em volta da variavel
 				dados[a] = [b]
-
-				# append = push -> .append(c) insere 'c' na lista da hash table 'b'
 				dados[a].append(c)
-
-			# tratamento de excessoes: se der ruim em alguma linha, ele executa 
-			# o bloco de código abaixo, no caso "pass", que significa "ignore"
-			# obs: botado de proposito, pq vai ter varias linhas que não me 
-			# interessam lá no arquivo 'TabelaInicial.txt'
 			except Exception as e:
 				pass
 
 			dados.pop('NRO', None)
 
-		#retorna a hash table 'dados'
 		return dados
 
-
 def saveDados(tabela):
-	ndx = []
-	with open('dados.txt', 'w') as dados:
-		for key in tabela:
-			dados.write(key + '|')
-			temp = tabela[key]
-			dados.write(temp[0] + '|' + temp[1])
-			dados.write('\n')
+	lista = []
+	finalPosition = 0
 
-def leDados():
-	with open('dados.txt', 'r') as f:
-		temp = f.readlines();
-		return temp
+	for key in tabela:
+		lista.append([key, tabela[key][0], tabela[key][1]])
 
-# essa coisa esquisita é a Main de python... 
+	lista = sorted(lista)
+	ndxA = {}
+	with open('primario.ndx', 'w') as ndx:
+		with open('dados.txt', 'w') as dados:
+			
+			for item in lista:
+				linha = item[0] + '|' + item[1] + '|' + item[2] + '\n'
+				dados.write(linha)
+				ndx.write(item[0] + ' ' + str(format(finalPosition, '05d')) + '\n')
+				ndxA[int(item[0])] = finalPosition
+				finalPosition += len(linha)
+	return ndxA
+
+def insere(ndx):
+	
+	numero = int(input('digite o numero: '))
+	nome = input('digite o nome: ')
+	carro = input('digite o carro: ')
+	with open('primario.ndx', 'r+') as ndxFile:
+		with open('dados.txt', 'a') as dados:
+			#trabalhando dados 
+			linha = format(numero, '03d')+'|'+nome+'|'+carro+'$'
+			dados.write(linha)
+
+			#trabalhando novo ndx
+			newNdx = ndxFile.readlines() # carriage esta na ultima posicao do arquivo
+
+			temp = newNdx[-1]
+			a,b = temp.split()
+			b = int(b)
+			b = b + len(linha)
+			ndxFile.write(format(numero, '03d') + ' ' + format(b, '05d'))
+
+
+	return ndx
+
+def remove(ndx):
+	nro = int(input("digite o numero: "))
+	print(ndx)
+	if nro in ndx:
+		ndx['remover'].append(nro)
+		print(ndx)
+	
+	else:
+		print('numero nao encontrado')
+	
+	return ndx
+
+	
+
+def altera(ndx):
+	nro = int(input('digite o numero da cada que voce quer alterar: '))
+	if nro in ndx:
+		ndx['remover'].append(nro)
+
+	print('qual dado você quer alterar:')
+	print('1) numero ')
+	print('2) nome')
+	print('3) veiculo')
+	opt = int(input('opcao: '))
+	value = input('digite o novo valor')
+	ndx['inserir'].append([opt, value])
+	
+	return ndx
+
+def procura(ndx):
+	print(ndx)
+
+def compacta(ndx):
+	print(ndx)
+
+
+def salva(ndx):
+	print(ndx)
+
+
+
 if __name__ == '__main__':
 
-	#chamada da função leTabela()
 	tabela = leTabelaInicial()
+	ndx = saveDados(tabela)
+	ndx['remover'] = []
+	ndx['alterar'] = []
+	ndx['inserir'] = []
 
-	saveDados(tabela)
 
-	teste = leDados()
+	option = 8 #numero arbitrario
+
+	os.system('CLS') #usar CLS do sistema operacional
 	
-	print(teste)
+	while(option != 6):
+		print(ndx)
+		print("-----------------------------")
+		print("Registro entrada de veiculos:")
+		print("-----------------------------")
+		print("digite a opcao desejada:")
+		print("  1) inserir")
+		print("  2) remover")
+		print("  3) alterar")
+		print("  4) procurar")
+		print("  5) compactar")
+		print("  6) sair")
+
+		option = int(input("Opção:"))
+
+		if(option == 1):
+			ndx = insere(ndx)
+		elif(option == 2):
+			ndx = remove(ndx)
+		elif(option == 3):
+			ndx = altera(ndx)
+		elif(option == 4):
+			ndx = procura(ndx)
+		elif(option == 5):
+			ndx = compacta(ndx)
+		elif(option == 6):
+			salva(ndx)
 
 
-	#printando pra ver se deu tudo certo
+
 	
+
+
