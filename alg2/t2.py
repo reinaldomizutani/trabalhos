@@ -55,37 +55,31 @@ def insere(ndx):
 	numero = int(input('digite o numero: '))
 	nome = input('digite o nome: ')
 	carro = input('digite o carro: ')
-	with open('primario.ndx', 'r+') as ndxFile:
-		with open('dados.txt', 'a') as dados:
-			#trabalhando dados 
-			linha = format(numero, '03d')+'|'+nome+'|'+carro+'$'
-			dados.write(linha)
+	linha = format(numero, '03d') + '|' + nome + '|' + carro + '\n'
+	ndx['inserir'].append(linha)
 
-			#trabalhando novo ndx
-			newNdx = ndxFile.readlines() # carriage esta na ultima posicao do arquivo
-
-			temp = newNdx[-1]
-			a,b = temp.split()
-			b = int(b)
-			b = b + len(linha)
-			ndxFile.write(format(numero, '03d') + ' ' + format(b, '05d'))
-
+	#mensagem de confirmacao ou erro
+	if linha in ndx['inserir']:
+		print('Insercao realizada com sucesso! ')
 
 	return ndx
 
 def remove(ndx):
 	nro = int(input("digite o numero: "))
-	print(ndx)
+	
 	if nro in ndx:
 		ndx['remover'].append(nro)
-		print(ndx)
+
+		#mensagem de confirmacao ou erro
+		if(nro in ndx['remover']):
+			print('remocao realizada com sucesso!')
+		else:
+			print('erro na remocao')
 	
 	else:
 		print('numero nao encontrado')
 	
 	return ndx
-
-	
 
 def altera(ndx):
 	nro = int(input('digite o numero da cada que voce quer alterar: '))
@@ -97,16 +91,70 @@ def altera(ndx):
 	print('2) nome')
 	print('3) veiculo')
 	opt = int(input('opcao: '))
-	value = input('digite o novo valor')
+	value = input('digite o novo valor: ')
 	ndx['inserir'].append([opt, value])
+
+	#mensagem de confirmacao ou erro
+	if([opt, value] in ndx['inserir']):
+		print('alteracao realizada com sucesso!')
+	else:
+		print('erro na alteracao do cadastro.')
 	
 	return ndx
 
 def procura(ndx):
-	print(ndx)
+	numero = int(input('numero a ser buscado: '))
+	
+	if numero in ndx:
+		print('usuario encontrado com sucesso!')
+		with open('dados.txt', 'r') as f:
+			dados = f.readlines()
+			numero = format(numero, '03d')
+			for line in dados:
+				if(line[:3] == numero):
+					nro, nome, carro = line.split('|')
+					print('numero = ' + nro)
+					print('nome = ' + nome)
+					print('carro = '+ carro)
+	print('\n')
 
 def compacta(ndx):
-	print(ndx)
+	ndxMemory = {}
+	dadosMemory = {}
+	with open('dados.txt', 'r+') as dados:
+		with open('primario.ndx', 'r+') as ndxFile:
+			for line in ndxFile:
+				key, value = line.split()
+				ndxMemory[int(key)] = int(value)
+
+			for line in dados:
+				nro, nome, carro = line.split('|')
+				carro = carro.rstrip()
+				dadosMemory[int(nro)] = nome + ' ' + carro
+
+			
+			print('ndxMemory')
+			print(ndxMemory)
+			print('dadosMemory')
+			print(dadosMemory)
+
+			
+			if(ndx['remover'] != []):
+				for item in ndx['remover']:
+					ndxMemory.pop(item, None)
+					dadosMemory.pop(item, None)
+				ndx['remover'] = []
+
+			
+
+			print('\n')
+			print(item)
+			print(ndxMemory)
+			print(dadosMemory)
+					
+
+			return ndxMemory
+
 
 
 def salva(ndx):
@@ -149,7 +197,7 @@ if __name__ == '__main__':
 		elif(option == 3):
 			ndx = altera(ndx)
 		elif(option == 4):
-			ndx = procura(ndx)
+			procura(ndx)
 		elif(option == 5):
 			ndx = compacta(ndx)
 		elif(option == 6):
