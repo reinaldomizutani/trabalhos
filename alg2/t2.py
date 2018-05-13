@@ -105,14 +105,17 @@ def altera(ndx):
 def procura(ndx):
 	print(ndx)
 	numero = int(input('numero a ser buscado: '))
-	indice = ndx[numero]
+	
 
 	if numero in ndx:
+		indice = ndx[numero]
 		print('usuario encontrado com sucesso!')
 		with open('dados.txt', 'r') as f:
 			f.seek(indice,0)
 			linha = f.readline()
 			print(linha)
+	else:
+		print('Usuario nao encontrado...')
 	print('\n')
 
 def compacta(ndx):
@@ -187,6 +190,7 @@ if __name__ == '__main__':
 		print("  4) procurar")
 		print("  5) compactar")
 		print("  6) sair")
+		print("  0) salva dados")
 
 		option = int(input("Opção:"))
 
@@ -201,6 +205,8 @@ if __name__ == '__main__':
 		elif(option == 5):
 			ndx = compacta(ndx)
 		elif(option == 6):
+			print('done')
+		elif(option == 0):
 			salva(ndx)
 
 
