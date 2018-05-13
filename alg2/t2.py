@@ -47,7 +47,7 @@ def saveDados(tabela):
 				dados.write(linha)
 				ndx.write(item[0] + ' ' + str(format(finalPosition, '05d')) + '\n')
 				ndxA[int(item[0])] = finalPosition
-				finalPosition += len(linha)
+				finalPosition += len(linha)+1
 	return ndxA
 
 def insere(ndx):
@@ -103,29 +103,28 @@ def altera(ndx):
 	return ndx
 
 def procura(ndx):
+	print(ndx)
 	numero = int(input('numero a ser buscado: '))
-	
+	indice = ndx[numero]
+
 	if numero in ndx:
 		print('usuario encontrado com sucesso!')
 		with open('dados.txt', 'r') as f:
-			dados = f.readlines()
-			numero = format(numero, '03d')
-			for line in dados:
-				if(line[:3] == numero):
-					nro, nome, carro = line.split('|')
-					print('numero = ' + nro)
-					print('nome = ' + nome)
-					print('carro = '+ carro)
+			f.seek(indice,0)
+			linha = f.readline()
+			print(linha)
 	print('\n')
 
 def compacta(ndx):
-	ndxMemory = {}
+	ndxMemory = []
 	dadosMemory = {}
 	with open('dados.txt', 'r+') as dados:
 		with open('primario.ndx', 'r+') as ndxFile:
 			for line in ndxFile:
 				key, value = line.split()
-				ndxMemory[int(key)] = int(value)
+				key = int(key)
+				value = int(value)
+				ndxMemory.append([key,value])
 
 			for line in dados:
 				nro, nome, carro = line.split('|')
@@ -137,18 +136,19 @@ def compacta(ndx):
 			print(ndxMemory)
 			print('dadosMemory')
 			print(dadosMemory)
+			dados.seek(0,0)
 
-			
-			if(ndx['remover'] != []):
-				for item in ndx['remover']:
-					ndxMemory.pop(item, None)
-					dadosMemory.pop(item, None)
-				ndx['remover'] = []
+			for line in dados:
+				if(int(line[:3]) in ndx['remover']):
+					line = []
+					dados.write('')
+
+
 
 			
 
 			print('\n')
-			print(item)
+			
 			print(ndxMemory)
 			print(dadosMemory)
 					
@@ -176,7 +176,7 @@ if __name__ == '__main__':
 	os.system('CLS') #usar CLS do sistema operacional
 	
 	while(option != 6):
-		print(ndx)
+		
 		print("-----------------------------")
 		print("Registro entrada de veiculos:")
 		print("-----------------------------")
