@@ -43,7 +43,7 @@ def saveDados(tabela):
 		with open('dados.txt', 'w') as dados:
 			
 			for item in lista:
-				linha = item[0] + '|' + item[1] + '|' + item[2] + '\n'
+				linha = item[0] + '|' + item[1].ljust(40,' ') + '|' + item[2].ljust(20, ' ') + '\n'
 				dados.write(linha)
 				ndx.write(item[0] + ' ' + str(format(finalPosition, '05d')) + '\n')
 				ndxA[int(item[0])] = finalPosition
@@ -55,13 +55,15 @@ def insere(ndx):
 	numero = int(input('digite o numero: '))
 	nome = input('digite o nome: ')
 	carro = input('digite o carro: ')
-	linha = format(numero, '03d') + '|' + nome + '|' + carro + '\n'
+	linha = format(numero, '03d') + '|' + nome.ljust(40,' ') + '|' + carro.ljust(20, ' ')
 	ndx['inserir'].append(linha)
 
 	#mensagem de confirmacao ou erro
 	if linha in ndx['inserir']:
 		print('Insercao realizada com sucesso! ')
 
+		for item in ndx['inserir']:
+			print(item)
 	return ndx
 
 def remove(ndx):
@@ -83,22 +85,23 @@ def remove(ndx):
 
 def altera(ndx):
 	nro = int(input('digite o numero da cada que voce quer alterar: '))
+
+
 	if nro in ndx:
-		ndx['remover'].append(nro)
+		
+		print('qual dado você quer alterar:')
+		print('1) numero ')
+		print('2) nome')
+		print('3) veiculo')
+		opt = int(input('opcao: '))
+		value = input('digite o novo valor: ')
+		ndx['alterar'].append([nro,opt, value])
 
-	print('qual dado você quer alterar:')
-	print('1) numero ')
-	print('2) nome')
-	print('3) veiculo')
-	opt = int(input('opcao: '))
-	value = input('digite o novo valor: ')
-	ndx['inserir'].append([opt, value])
-
-	#mensagem de confirmacao ou erro
-	if([opt, value] in ndx['inserir']):
-		print('alteracao realizada com sucesso!')
-	else:
-		print('erro na alteracao do cadastro.')
+		#mensagem de confirmacao ou erro
+		if([opt, value] in ndx['inserir']):
+			print('alteracao realizada com sucesso!')
+		else:
+			print('erro na alteracao do cadastro.')
 	
 	return ndx
 
@@ -118,11 +121,36 @@ def procura(ndx):
 		print('Usuario nao encontrado...')
 	print('\n')
 
+def returnMax(ndx):
+	maior = 0
+	for item in ndx:
+		if(isinstance(item,int)):
+			pos = ndx[item]
+			print(pos)
+			if(maior < pos):
+				maior = pos
+		
+		
+
+	return maior
+
 def compacta(ndx):
+
+
+
 	ndxMemory = []
 	dadosMemory = {}
+	with open('dados.txt', 'a') as dados:
+		for item in ndx['inserir']:######### RESOLVER ISSO AQUI
+			dados.write(item)
+			pos = returnMax(ndx)
+			chave = int(ndx['inserir'][:3])
+			ndx[chave] = pos
+			ndx['inserir'].remove(item)
+
 	with open('dados.txt', 'r+') as dados:
 		with open('primario.ndx', 'r+') as ndxFile:
+
 			for line in ndxFile:
 				key, value = line.split()
 				key = int(key)
@@ -135,28 +163,42 @@ def compacta(ndx):
 				dadosMemory[int(nro)] = nome + ' ' + carro
 
 			
-			print('ndxMemory')
-			print(ndxMemory)
-			print('dadosMemory')
-			print(dadosMemory)
-			dados.seek(0,0)
+			'''
+			for item in ndx['remover']:
+				indice = ndx[item] + 67
+				dados.seek(indice,0)
+				proxLinhas = dados.readlines()
+				dados.seek(ndx[item])
+				dados.writelines(proxLinhas)
+			'''
 
-			for line in dados:
-				if(int(line[:3]) in ndx['remover']):
-					line = []
-					dados.write('')
+			#alterar dados!!
+			for item in ndx['alterar']:
+				nro = item[0]
+				tipo = item[1]
+				dado = item[2]
+
+				indice = ndx[nro]
+				dados.seek(indice,0)
+				linha = dados.readline()
+				oldNro, oldNome, oldCarro = linha.split('|')
+				dados.seek(indice,0)
+				if(tipo == 1):
+					novaLinha = format(nro, "03d") + '|' + oldNome + '|' + oldCarro
+				elif(tipo == 2):
+					novaLinha = oldNro + '|' + dado.ljust(40,' ') + '|' + oldCarro
+				else:
+					novaLinha = oldNro + '|' + oldNome + '|' + dado.ljust(20, ' ')
+
+				dados.write(novaLinha)
+				ndx['alterar'].remove(item)
+
+			print(ndx)	
+
+			#adicionar dados:
 
 
-
-			
-
-			print('\n')
-			
-			print(ndxMemory)
-			print(dadosMemory)
-					
-
-			return ndxMemory
+			return ndx
 
 
 
@@ -177,7 +219,7 @@ if __name__ == '__main__':
 	option = 8 #numero arbitrario
 
 	os.system('CLS') #usar CLS do sistema operacional
-	
+
 	while(option != 6):
 		
 		print("-----------------------------")
