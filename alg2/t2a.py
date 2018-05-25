@@ -24,6 +24,7 @@ def leTabela():
 						pass
 				arquivo.pop(0)
 				arquivo = sorted(arquivo)
+
 				#construindo primario.ndx
 				ndxMem = {}
 				finalposition = 0
@@ -53,13 +54,34 @@ def insere(ndx):
 			tempNdx = format(tempNdx, "05d")
 			linhaNdx = nro + ' ' + tempNdx
 			ndxFile.write(linhaNdx)
+			print(ndx)
+			return ndx
 
 
 def remove(ndx):
-	with open('Dados.txt', 'w') as f:
-		f.seek(67,0)
-		teste = 'alskdjflaskjdflkasj'
-		f.write(teste)
+	remover = input("digite o numero a ser removido: ")
+	remover = int(remover)
+	with open('Dados.txt', 'r+') as f:
+		if(remover in ndx):
+			numero = ndx[remover]
+			f.seek(numero)
+			f.write('#')
+			ndx.pop(numero, None)
+
+
+			### QUE???? TO FAZENDO CAGADA AQUI!!!
+			with open('primario.ndx', 'r+')as primario:
+				tempNdx = primario.readlines()
+				for line in tempNdx:
+					nro, pos = line.split()
+					nro = int(nro)
+					if(nro == remover):
+						pos = int(pos)
+						primario.seek(pos)
+						primario.write("#")
+						print('registro {} removido com sucesso'.format(remover))
+					
+
 
 def altera(ndx):
 	print(ndx)
