@@ -1,70 +1,61 @@
 import os
 
-def leTabelaInicial():
-	with open('TabelaInicial.txt', 'r') as f:
-		tabela = f.readlines()
-		dados = {}
+def leTabela():
+	with open("TabelaInicial.txt", 'r') as f:
+		with open("Dados.txt", 'w') as dados:
+			with open("primario.ndx", 'w') as ndx:
 
-		for line in tabela:
-			try:
-				line = line[1:]
-				line = line[:-2]
+				tabela = f.readlines()
+				arquivo = []
+				for line in tabela:
+					try:
 
-				a, b, c = line.split('|')
-				a = a.replace('  ', '')
-				b = b.replace('  ', '')
-				c = c.replace('  ', '')
+						tempLine = line.rstrip('\n')
+						tempLine = tempLine[1:-1]
+						nro, nome, veiculo = tempLine.split('|')
+						nro = nro.rstrip(' ')
+						nome = nome.rstrip(' ')
+						veiculo = veiculo.rstrip(' ')
+						linha = nro + '|' + nome.ljust(40,' ') + '|' + veiculo.ljust(20,' ') + '\n'
+						arquivo.append(linha)
 
-				if(b[-1] == ' '):
-					b = b[:-1]
 
-				if(c[-1] == ' '):
-					c = c[:-1]
+					except Exception as e:
+						pass
+				arquivo.pop(0)
+				arquivo = sorted(arquivo)
 
-				dados[a] = [b]
-				dados[a].append(c)
-			except Exception as e:
-				pass
+				#construindo primario.ndx
+				ndxMem = {}
+				finalposition = 0
+				for linha in arquivo:
+					dados.write(linha)
+					nro, nome, veiculo = linha.split('|')
+					ndx.write(nro + ' ' + str(format(finalposition, '05d')) + '\n')
+					ndxMem[int(nro)] = finalposition
+					finalposition = finalposition + len(linha) + 1
 
-			dados.pop('NRO', None)
-
-		return dados
-
-def saveDados(tabela):
-	lista = []
-	finalPosition = 0
-
-	for key in tabela:
-		lista.append([key, tabela[key][0], tabela[key][1]])
-
-	lista = sorted(lista)
-	ndxA = {}
-	with open('primario.ndx', 'w') as ndx:
-		with open('dados.txt', 'w') as dados:
-			
-			for item in lista:
-				linha = item[0] + '|' + item[1].ljust(40,' ') + '|' + item[2].ljust(20, ' ') + '\n'
-				dados.write(linha)
-				ndx.write(item[0] + ' ' + str(format(finalPosition, '05d')) + '\n')
-				ndxA[int(item[0])] = finalPosition
-				finalPosition += len(linha)+1
-	return ndxA
+				return ndxMem
 
 def insere(ndx):
-	
-	numero = int(input('digite o numero: '))
-	nome = input('digite o nome: ')
-	carro = input('digite o carro: ')
-	linha = format(numero, '03d') + '|' + nome.ljust(40,' ') + '|' + carro.ljust(20, ' ')
-	ndx['inserir'].append(linha)
+	with open('Dados.txt', 'a') as f:
+		with open('primario.ndx', 'a') as ndxFile:
 
-	#mensagem de confirmacao ou erro
-	if linha in ndx['inserir']:
-		print('Insercao realizada com sucesso! ')
-
-		for item in ndx['inserir']:
-			print(item)
-	return ndx
+			nro = int(input('digite o numero: '))
+			nro = format(nro, "03d")
+			
+			nome = input('digite o nome: ')
+			veiculo = input('digite o veiculo: ')
+			linha = nro + '|' + nome.ljust(40,' ') + '|' + veiculo.ljust(20,' ') + '\n'
+			f.write(linha)
+			tempNdx = max(ndx.values()) + len(linha) + 1
+			
+			ndx[int(nro)] = tempNdx
+			tempNdx = format(tempNdx, "05d")
+			linhaNdx = nro + ' ' + tempNdx
+			ndxFile.write(linhaNdx)
+			print(ndx)
+			return ndx
 
 def remove(ndx):
 	nro = int(input("digite o numero: "))
@@ -209,8 +200,7 @@ def salva(ndx):
 
 if __name__ == '__main__':
 
-	tabela = leTabelaInicial()
-	ndx = saveDados(tabela)
+	ndx = leTabela()
 	ndx['remover'] = []
 	ndx['alterar'] = []
 	ndx['inserir'] = []
