@@ -1,0 +1,24 @@
+Instruções para utilisar o código em anexo:
+
+1. O arquivo de entrada deve ter o nome "biblio.txt".
+2. O formato de leitura é o seguinte:
+	- Na primeira linha, inserir o número de linhas da matriz.
+	- Da segunda linha em diante, deve-se inserir uma matriz triangular, como na biblioteca dantzig42.tsp (somente a matriz).
+
+	exemplo:
+
+	4
+	0   8   0  39  42   0  39  47  9  0
+
+	representação dessa matriz é:
+	0
+	8   0
+	39  42   0
+	39  47   9   0
+
+3. Colocar o arquivo 'biblio.txt' e o arquivo 'maris_.py' na mesma pasta.
+
+4. Usando o python3, localizar o arquivo no computador através do 
+   prompt de comando(cmd.exe), e inserir o comando 'python maris_.py'.
+
+5. Selecionar o nó inicial que você deseja iniciar o algoritmo.
