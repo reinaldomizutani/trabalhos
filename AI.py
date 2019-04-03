@@ -1,11 +1,14 @@
 import pygame
 
 
-def printaMuros(mapa):
+def printaMuros(mapa,start,end):
 	""" imprime os muros intransponíveis na tela """
 	for item in mapa:
 		pygame.draw.rect(win, (75,75,100),(20*item[1], 20*item[0], width, height))
 	
+	pygame.draw.rect(win, (200,0,0),(20*start[1], 20*start[0], width, height))#START
+
+	pygame.draw.rect(win, (200,0,0),(20*end[1], 20*end[0], width, height))#END
 
 if __name__ == '__main__':
 	
@@ -22,6 +25,7 @@ if __name__ == '__main__':
 	tamX = int(dados[1])
 	mapa = []
 
+
 	#-- lendo a matriz e produzindo um mapa dos objetos -----
 
 	for tempY in range(1,tamY):
@@ -29,6 +33,10 @@ if __name__ == '__main__':
 			if(entrada[tempY][tempX] == '-'):
 				wall = [tempY-1,tempX]
 				mapa.append(wall)
+			elif(entrada[tempY][tempX] == '#'):
+				start = [tempY-1,tempX]
+			elif(entrada[tempY][tempX] == '$'):
+				end = [tempY-1,tempX]
 
 	#--------------------------------------------------------
 
@@ -38,8 +46,8 @@ if __name__ == '__main__':
 
 	pygame.display.set_caption("inteligencia artificial")
 
-	x = 20
-	y = 20
+	x = start[1]
+	y = start[0]
 
 	width = 20
 	height = 20
@@ -77,7 +85,7 @@ if __name__ == '__main__':
 				y = y + 20
 		win.fill((200,200,200))
 		pygame.draw.rect(win, (100,100,200),(x, y, width, height),5)
-		printaMuros(mapa)
+		printaMuros(mapa,start,end)
 		pygame.display.update()
 
 	pygame.quit()
