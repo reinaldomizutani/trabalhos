@@ -8,7 +8,7 @@ def printaMuros(mapa,start,end):
 	
 	pygame.draw.rect(win, (200,0,0),(20*start[1], 20*start[0], width, height))#START
 
-	pygame.draw.rect(win, (200,0,0),(20*end[1], 20*end[0], width, height))#END
+	pygame.draw.rect(win, (0,200,0),(20*end[1], 20*end[0], width, height))#END
 
 if __name__ == '__main__':
 	
@@ -46,8 +46,8 @@ if __name__ == '__main__':
 
 	pygame.display.set_caption("inteligencia artificial")
 
-	x = start[1]
-	y = start[0]
+	x = 20*start[1]
+	y = 20*start[0]
 
 	width = 20
 	height = 20
